@@ -3,7 +3,8 @@ import axios from "axios";
 
 export default class extends Controller {
     static targets = [ 'power', 'game', 'dvd' ]
-    url = 'http://localhost:8002/api/command/';
+
+    url = process.env.BASE_URL + '/api/command/';
     power = false;
     connect() {
         this.initializePowerBtn();

@@ -57,6 +57,22 @@ Encore
         config.useBuiltIns = 'usage';
         config.corejs = '3.23';
     })
+    .configureDefinePlugin(options => {
+        const env = dotenv.config();
+        //console.log(env);
+
+        let envLocalOverride = null;
+
+        try {
+            envLocalOverride = dotenv.parse(fs.readFileSync('.env.local'));
+        } catch (e) {}
+
+        if (env.error) {
+            throw env.error;
+        }
+
+        options['process.env.BASE_URL'] = JSON.stringify(envLocalOverride.BASE_URL ?? env.parsed.BASE_URL);
+    })
 
     // enables Sass/SCSS support
     //.enableSassLoader()
