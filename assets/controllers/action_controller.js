@@ -12,20 +12,24 @@ export default class extends Controller {
             this.initializeChannelsBtn();
         }, 100);
 
+        document.querySelectorAll('data-button').forEach((elem) => {
+            elem.addEventListener('click', function (e) {
+                e.target.disabled = true;
+                setTimeout(() => {
+                    e.target.disabled = false;
+                }, 100);
+            });
+        });
+
     }
 
     sendAction(e)
     {
-        console.log(e);
         const command = e.target.getAttribute('data-command');
-
-        console.log('command sent : ', command);
 
         axios
             .get(this.url + command)
-            .then((resp) => {
-                console.log(resp);
-            })
+            .then((resp) => {})
             .catch((error) => {
                 alert('error form api');
             })
@@ -52,12 +56,10 @@ export default class extends Controller {
     disableAllChannelsBtm()
     {
         document.querySelectorAll("[data-command]").forEach((elem) => {
-            console.log(elem);
             if (elem.classList.contains('active')){
                 elem.classList.remove('active');
             }
         });
-        console.log('elem');
     }
 
     initializePowerBtn(){
@@ -68,7 +70,7 @@ export default class extends Controller {
                 if (powerState === 'PWR0' && !this.powerTarget.classList.contains('active')) {
                     this.power = true;
                     this.enableBtnAction(this.powerTarget, 'active', 'PF');
-                } else if (powerState === 'PWR2' && this.powerTarget.classList.contains('active')){
+                } else if (powerState === 'PWR2' && this.powerTarget.classList.contains('active')) {
                     this.power = false;
                     this.disableBtnAction(this.powerTarget, 'active', 'PO');
                 }
