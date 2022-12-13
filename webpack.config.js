@@ -71,7 +71,7 @@ Encore
             throw env.error;
         }
 
-        options['process.env.BASE_URL'] = JSON.stringify(envLocalOverride.BASE_URL ?? env.parsed.BASE_URL);
+        options['process.env.BASE_URL'] = JSON.stringify(envLocalOverride?.BASE_URL ?? env.parsed.BASE_URL);
     })
 
     // enables Sass/SCSS support
