@@ -12,6 +12,20 @@ use function Symfony\Component\String\b;
 
 class CommandController extends AbstractController
 {
+
+    /**
+     * @var string
+     */
+    private string $receiverIP;
+
+    /**
+     * @param string $receiverIP
+     */
+    public function __construct(string $receiverIP)
+    {
+        $this->receiverIP = $receiverIP;
+    }
+
     #[Route('/api/command/{command}', name: 'send_command_to_receiver', methods: ['GET'])]
     public function index(string $command): JsonResponse
     {
@@ -19,7 +33,7 @@ class CommandController extends AbstractController
             throw new BadRequestHttpException('Command not handled: ' . $command);
         }
 
-        $socket = fsockopen("192.168.1.92", "8102", $errno, $errstr);
+        $socket = fsockopen($this->receiverIP, "8102", $errno, $errstr);
 
         if(!$socket) {
             throw new BadRequestHttpException('Connection failed');
@@ -27,8 +41,6 @@ class CommandController extends AbstractController
 
         fputs($socket, $command . "\r\n");
 
-        $buffer = '';
-        // Keep fetching lines until response code is correct
         $line = fgets($socket);
 
         fclose($socket);
