@@ -50,9 +50,13 @@
     #}
             <div></div>
             <div class="d-flex flex-column rounded-bg py-3 px-4 justify-content-center align-items-center">
-                <i class="fas fa-plus py-3 control-icon" {{ stimulus_action('action', 'sendAction', 'click') }} data-command="VU"></i>
-                <span class="label py-3">Volume</span>
-                <i class="fas fa-minus py-3 control-icon" {{ stimulus_action('action', 'sendAction', 'click') }} data-command="VD"></i>
+                <button class="action-btn">
+                    <i class="fas fa-plus py-3 control-icon" {{ stimulus_action('action', 'sendAction', 'click') }} data-command="VU"></i>
+                </button>
+                    <span class="label py-3">Volume</span>
+                <button class="action-btn">
+                    <i class="fas fa-minus py-3 control-icon" {{ stimulus_action('action', 'sendAction', 'click') }} data-command="VD"></i>
+                </button>
             </div>
             <div></div>
     {#

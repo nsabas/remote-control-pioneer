@@ -93,3 +93,7 @@ i.left {
 i.top {
     transform: rotate(270deg) translate(70px);
 }
+
+.action-btn {
+    all: unset;
+}
