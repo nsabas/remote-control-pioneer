@@ -27,11 +27,12 @@ cd .docker
 docker-compose up -d
 ```
 
+* After containers started
+```
+docker-compose exec -it php make setup
+```
+
 You ready to go !
-
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
 
 ## Acknowledgments
 
