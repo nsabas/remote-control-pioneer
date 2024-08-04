@@ -39,6 +39,22 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
 # and install node
 RUN apt-get install nodejs -y
 
+COPY ../../assets ./
+COPY ../../bin ./
+COPY ../../config ./
+COPY ../../public ./
+COPY ../../src ./
+COPY ../../templates ./
+COPY ../../.env ./
+COPY ../../composer.json ./
+COPY ../../composer.lock ./
+COPY ../../package.json ./
+COPY ../../symfony.lock ./
+COPY ../../webpack.config.js ./
+COPY ../../yarn.lock ./
+
+RUN composer install
+
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
