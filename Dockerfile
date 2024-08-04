@@ -1,7 +1,7 @@
 FROM php:8.1-fpm-buster
 ARG TIMEZONE
 
-COPY php.ini /usr/local/etc/php/conf.d/docker-php-config.ini
+COPY docker/php/php.ini /usr/local/etc/php/conf.d/docker-php-config.ini
 
 RUN apt-get update && apt-get install -y \
     gnupg \
@@ -39,21 +39,21 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
 # and install node
 RUN apt-get install nodejs -y
 
-COPY ../../assets ./
-COPY ../../bin ./
-COPY ../../config ./
-COPY ../../public ./
-COPY ../../src ./
-COPY ../../templates ./
-COPY ../../.env ./
-COPY ../../composer.json ./
-COPY ../../composer.lock ./
-COPY ../../package.json ./
-COPY ../../symfony.lock ./
-COPY ../../webpack.config.js ./
-COPY ../../yarn.lock ./
+COPY assets ./
+COPY bin ./
+COPY config ./
+COPY public ./
+COPY src ./
+COPY templates ./
+COPY .env ./
+COPY composer.json ./
+COPY composer.lock ./
+COPY package.json ./
+COPY symfony.lock ./
+COPY webpack.config.js ./
+COPY yarn.lock ./
 
-RUN composer install
+RUN composer install --no-scripts
 
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -

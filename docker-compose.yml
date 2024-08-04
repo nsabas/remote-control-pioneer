@@ -4,17 +4,17 @@ services:
 
     php:
         build:
-            context: ./php
+            context: .
             args:
                 TIMEZONE: ${TIMEZONE}
-        volumes:
-            - ../.:/var/www/symfony/
+#        volumes:
+#            - ../.:/var/www/symfony/
         networks:
             - symfony
 
     nginx:
         build:
-            context: ./nginx
+            context: docker/nginx
         volumes:
             - ../.:/var/www/symfony/
         ports:
@@ -22,7 +22,7 @@ services:
         networks:
             - symfony
         env_file:
-            - .env.nginx
+            - docker/.env.nginx
 
 networks:
     symfony:
