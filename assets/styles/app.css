@@ -4,6 +4,11 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    position: relative;
+}
+
+html, body {
+    overflow-x: hidden;
 }
 
 .container {
@@ -12,6 +17,7 @@ body {
     height: 650px;
     width: 350px;
 }
+
 
 div.menu-grid {
     display: grid;

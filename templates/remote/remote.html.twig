@@ -1,6 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="toast position-absolute top-0" role="alert" aria-live="assertive" aria-atomic="true" {{ stimulus_controller('toast') }}>
+        <div class="toast-header">
+            <strong class="me-auto">Oups !</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+            Une erreur est survenu ! Appeler Nico ;)
+        </div>
+    </div>
     <!--container-->
     <div class="container" {{ stimulus_controller('action') }}>
         <div class="d-flex flex-row justify-content-between px-3 py-4 align-items-center">
@@ -13,17 +22,18 @@
 
         <div class="d-flex flex-row justify-content-center">
             <div class="menu-grid">
-                <div class="d-flex flex-column align-items-center" {{ stimulus_action('action', 'sendAction', 'click')}} data-command="PO" >
+                <div class="d-flex flex-column align-items-center" {{ stimulus_action('action', 'sendAction', 'click')}} data-command="{{ constant('App\\Receiver\\Command::POWER_ON') }}" >
                     <i class="fas fa-power-off" {{ stimulus_target('action', 'power')}}></i>
                     <span class="label">Power</span>
                 </div>
-                <div class="d-flex flex-column align-items-center" {{ stimulus_action('action', 'sendAction', 'click')}} data-command="49FN" >
+                <div class="d-flex flex-column align-items-center" {{ stimulus_action('action', 'sendAction', 'click')}} data-command="{{ constant('App\\Receiver\\Command::CHANNEL_GAME') }}" >
                     <i class="fas fa-gamepad" {{ stimulus_target('action', 'game')}}></i>
                     <span class="label">PS4</span>
                 </div>
-                <div class="d-flex flex-column align-items-center" {{ stimulus_action('action', 'sendAction', 'click')}} data-command="04FN" >
-                    <i class="fas fa-tv" {{ stimulus_target('action', 'dvd')}}></i>
-                    <span class="label">DVD</span>
+                <div class="d-flex flex-column align-items-center" {{ stimulus_action('action', 'sendAction', 'click')}} data-command="{{ constant('App\\Receiver\\Command::CHANNEL_TV') }}" >
+{#                <div class="d-flex flex-column align-items-center" {{ stimulus_action('action', 'sendAction', 'click')}} data-command="sdfs" >#}
+                    <i class="fas fa-tv" {{ stimulus_target('action', 'tv')}}></i>
+                    <span class="label">TV</span>
                 </div>
                 {#<div class="d-flex flex-column align-items-center">
                     <i class="fas fa-bars"></i>
@@ -40,6 +50,11 @@
             </div>
         </div>
 
+        <div class="d-flex flex-row mt-4 justify-content-between px-2">
+            <div></div>
+            <div class="display-2" {{ stimulus_target('action', 'volume') }}>--</div>
+            <div></div>
+        </div>
         <div class="d-flex flex-row mt-4 justify-content-between px-2">
     {#
             <div class="d-flex flex-column rounded-bg py-3 px-4 justify-content-center align-items-center">

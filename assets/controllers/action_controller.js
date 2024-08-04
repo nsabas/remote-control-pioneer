@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 import axios from "axios";
 
 export default class extends Controller {
-    static targets = [ 'power', 'game', 'dvd' ]
+    static targets = [ 'power', 'game', 'tv', 'volume' ]
 
     url = process.env.BASE_URL + '/api/command/';
     power = false;
@@ -29,9 +29,17 @@ export default class extends Controller {
 
         axios
             .get(this.url + command)
-            .then((resp) => {})
+            .then((resp) => {
+                console.log(resp);
+                if (resp.data.infos){
+                    switch (resp.data.infos.type) {
+                        case 'VOL':
+                            this.syncVolume(resp.data.infos);
+                    }
+                }
+            })
             .catch((error) => {
-                alert('error form api');
+                document.toast.show();
             })
         ;
 
@@ -91,9 +99,9 @@ export default class extends Controller {
                         this.disableAllChannelsBtm();
                         this.enableBtnAction(this.gameTarget, 'active-channel')
                         break;
-                    case 'FN04':
+                    case 'FN05':
                         this.disableAllChannelsBtm();
-                        this.enableBtnAction(this.dvdTarget, 'active-channel')
+                        this.enableBtnAction(this.tvTarget, 'active-channel')
                         break;
                     default:
                         console.log(`Sorry, we are not hqndle the cmd: ${channelState}`);
@@ -103,5 +111,9 @@ export default class extends Controller {
                 alert('error form api');
             })
         ;
+    }
+
+    syncVolume(info) {
+        this.volumeTarget.innerHTML = info.volume;
     }
 }
