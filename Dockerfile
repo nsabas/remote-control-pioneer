@@ -39,19 +39,21 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
 # and install node
 RUN apt-get install nodejs -y
 
-COPY assets ./
-COPY bin ./
-COPY config ./
-COPY public ./
-COPY src ./
-COPY templates ./
-COPY .env ./
-COPY composer.json ./
-COPY composer.lock ./
-COPY package.json ./
-COPY symfony.lock ./
-COPY webpack.config.js ./
-COPY yarn.lock ./
+WORKDIR /var/www/symfony
+
+COPY --chown=www-data assets/ assets/
+COPY --chown=www-data bin/ bin/
+COPY --chown=www-data config/ config/
+COPY --chown=www-data public/ public/
+COPY --chown=www-data src/ scr/
+COPY --chown=www-data templates/ templates/
+COPY --chown=www-data .env .env
+COPY --chown=www-data composer.json composer.json
+COPY --chown=www-data composer.lock composer.lock
+COPY --chown=www-data package.json package.json
+COPY --chown=www-data symfony.lock symfony.lock
+COPY --chown=www-data webpack.config.js webpack.config.js
+COPY --chown=www-data yarn.lock yarn.lock
 
 RUN composer install --no-scripts
 
