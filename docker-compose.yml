@@ -16,7 +16,7 @@ services:
         build:
             context: docker/nginx
         volumes:
-            - ./public/:/var/www/symfony/public/
+            - project:/var/www/symfony/
         ports:
             - "8004:80"
         networks:
@@ -24,6 +24,8 @@ services:
         env_file:
             - docker/.env.nginx
 
+volumes:
+    project:
 
 networks:
     symfony:
