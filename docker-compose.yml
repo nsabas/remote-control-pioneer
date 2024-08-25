@@ -5,10 +5,8 @@ services:
     php:
         build:
             context: .
-            args:
-                TIMEZONE: ${TIMEZONE}
-#        volumes:
-#            - ../.:/var/www/symfony/
+        volumes:
+            - project:/var/www/symfony/
         networks:
             - symfony
 
@@ -17,8 +15,6 @@ services:
             context: docker/nginx
         volumes:
             - project:/var/www/symfony/
-        ports:
-            - "8004:80"
         networks:
             - symfony
         env_file:
